@@ -1,0 +1,33 @@
+name: Bulk HR Mailer Automation
+
+on:
+  schedule:
+    - cron: '0 */8 * * *' # Runs every 8 hours
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  send_emails:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Run Cloud Mailer Script
+      env:
+        SENDER_EMAIL: $\{{ secrets.SENDER_EMAIL \}}
+        APP_PASSWORD: $\{{ secrets.APP_PASSWORD \}}
+      run: python cloud_mailer.py
+
+    - name: Commit and push updated state
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add state.json
+        git commit -m "chore: update email index state" || echo "No changes to commit"
+        git push
