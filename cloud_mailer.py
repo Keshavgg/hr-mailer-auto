@@ -1,4 +1,4 @@
-﻿import os
+import os
 import csv
 import json
 import time
@@ -12,7 +12,7 @@ CSV_PATH = "hr_contacts.csv"
 RESUME_PATH = "resume2.pdf"
 STATE_FILE = "state.json"
 
-BATCH_SIZE = 100
+BATCH_SIZE = 2
 DELAY_SECONDS = 2
 
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
