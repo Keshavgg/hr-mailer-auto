@@ -44,7 +44,7 @@ keshav.jindal.7029@gmail.com'''
 
 def get_state():
     if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, "r") as f:
+        with open(STATE_FILE, "r", encoding="utf-8-sig") as f:
             return json.load(f).get("index", 200)
     return 200
 
